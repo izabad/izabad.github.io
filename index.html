@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isabel Abad — Designer & Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+:root {
+  --cream:    #FAF7F2;
+  --warm:     #F2EDE4;
+  --sand:     #E8DDD0;
+  --rose:     #E8A598;
+  --blush:    #F5C9C0;
+  --sage:     #A8BFB0;
+  --sky:      #A8C4D4;
+  --lavender: #C4B8D8;
+  --ink:      #1C1812;
+  --bark:     #4A3728;
+  --mist:     #8C8078;
+  --accent:   #C9623A;
+  --accent2:  #4A7B6F;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, background 0.2s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s;
+  opacity: 0.6;
+}
+body:hover .cursor { transform: translate(-50%, -50%); }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: multiply;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--bark);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ── HERO ── */
+#home {
+  min-height: 100vh;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.blob-1 {
+  width: 500px; height: 500px;
+  background: var(--blush);
+  top: -100px; right: -100px;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+.blob-2 {
+  width: 350px; height: 350px;
+  background: var(--sky);
+  bottom: 0; left: -80px;
+  animation: drift 10s ease-in-out infinite alternate-reverse;
+}
+.blob-3 {
+  width: 250px; height: 250px;
+  background: var(--lavender);
+  top: 40%; left: 40%;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.05); }
+}
+
+.hero-text { position: relative; z-index: 2; }
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-tagline {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--mist);
+  line-height: 1.7;
+  margin-top: 1.5rem;
+  max-width: 420px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.hero-tagline strong { color: var(--bark); font-weight: 500; }
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: var(--ink);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: 100px;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 98, 58, 0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--bark);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: 100px;
+  border: 1.5px solid var(--sand);
+  transition: transform 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+}
+
+.hero-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 24px 60px rgba(28, 24, 18, 0.08), 0 4px 16px rgba(28, 24, 18, 0.04);
+  width: 340px;
+  position: relative;
+  transform: rotate(2deg);
+  transition: transform 0.4s ease;
+}
+
+.hero-card:hover { transform: rotate(0deg) scale(1.02); }
+
+.card-tag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: var(--blush);
+  color: var(--accent);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.card-desc {
+  font-size: 0.85rem;
+  color: var(--mist);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-pill {
+  padding: 0.25rem 0.7rem;
+  background: var(--warm);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  color: var(--bark);
+  font-weight: 500;
+}
+
+.card-float {
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 0 8px 24px rgba(28, 24, 18, 0.1);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.float-1 {
+  top: -20px; right: -30px;
+  color: var(--accent2);
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-2 {
+  bottom: -15px; left: -25px;
+  color: var(--accent);
+  animation: float 3.5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── SECTION BASE ── */
+section {
+  padding: 7rem 3rem;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── ABOUT ── */
+#about {
+  background: var(--warm);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-blob-card {
+  background: white;
+  border-radius: 32px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(28, 24, 18, 0.07);
+  position: relative;
+}
+
+.about-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.about-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--bark);
+  line-height: 1.6;
+}
+
+.about-dot {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.about-dot-1 {
+  background: var(--blush);
+  bottom: -30px; right: -30px;
+  z-index: -1;
+}
+
+.about-dot-2 {
+  background: var(--sage);
+  top: -20px; left: -20px;
+  z-index: -1;
+  width: 80px; height: 80px;
+}
+
+.about-text p {
+  font-size: 1rem;
+  color: var(--mist);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+  font-weight: 300;
+}
+
+.about-text p strong { color: var(--bark); font-weight: 500; }
+
+.about-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.fact-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 4px 16px rgba(28, 24, 18, 0.05);
+}
+
+.fact-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.fact-label {
+  font-size: 0.78rem;
+  color: var(--mist);
+  margin-top: 0.3rem;
+  font-weight: 400;
+}
+
+/* ── PROJECTS ── */
+#projects { background: var(--cream); }
+
+.projects-header {
+  max-width: 1100px;
+  margin: 0 auto 3.5rem;
+}
+
+.projects-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(28, 24, 18, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(28, 24, 18, 0.12);
+}
+
+.project-thumb {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.thumb-knitwit {
+  background: linear-gradient(135deg, #F5E6D8 0%, #EDD5C5 50%, #E8C4B0 100%);
+}
+
+.thumb-brand {
+  background: linear-gradient(135deg, #D8E8E4 0%, #C5D8D4 50%, #B0C8C2 100%);
+}
+
+.thumb-web {
+  background: linear-gradient(135deg, #D8DFF0 0%, #C5CCE8 50%, #B0B8DC 100%);
+}
+
+.thumb-icon {
+  font-size: 5rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .thumb-icon { transform: scale(1.1) rotate(-5deg); }
+
+.project-body {
+  padding: 1.8rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.project-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--mist);
+  line-height: 1.65;
+  font-weight: 300;
+  flex: 1;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+}
+
+.tag {
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.tag-tech { background: var(--warm); color: var(--bark); }
+.tag-design { background: #EDE8F5; color: #6B5B8A; }
+.tag-live { background: #E8F4EE; color: var(--accent2); }
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.project-link:hover { gap: 0.7rem; }
+
+.side-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── SKILLS ── */
+#skills { background: var(--ink); color: var(--cream); }
+
+.skills-header { max-width: 1100px; margin: 0 auto 3rem; }
+.skills-header .section-title { color: var(--cream); }
+.skills-header .section-label { color: var(--blush); }
+
+.skills-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-group {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.skill-group:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-3px);
+}
+
+.skill-group-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.skill-group-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-list li {
+  font-size: 0.85rem;
+  color: rgba(250, 247, 242, 0.65);
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-list li::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── CONTACT ── */
+#contact {
+  background: var(--warm);
+  text-align: center;
+}
+
+.contact-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.contact-inner .section-title { margin-bottom: 1rem; }
+
+.contact-sub {
+  font-size: 1rem;
+  color: var(--mist);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 1.8rem;
+  background: white;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--bark);
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(28, 24, 18, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(28, 24, 18, 0.1);
+  color: var(--accent);
+}
+
+.contact-card-icon { font-size: 1.2rem; }
+
+.contact-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--mist);
+  letter-spacing: 0.08em;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: rgba(250, 247, 242, 0.4);
+  text-align: center;
+  padding: 2rem 3rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+footer span { color: var(--accent); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--mist); }
+```
+
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── NAV ── -->
+
+  <nav>
+    <a href="#home" class="nav-logo">Isabel Abad</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+
+  <section id="home">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+```
+<div class="hero-text">
+  <p class="hero-eyebrow">✦ Designer & Developer based in Richmond, VA</p>
+  <h1 class="hero-name">
+    Making things<br><em>beautiful</em><br>& functional.
+  </h1>
+  <p class="hero-tagline">
+    I'm Isabel — a <strong>technical support specialist</strong> and <strong>freelance designer</strong> who believes great digital experiences are both technically sound and genuinely delightful to use.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">See my work ↓</a>
+    <a href="#contact" class="btn-secondary">Get in touch</a>
+  </div>
+</div>
+
+<div class="hero-visual">
+  <div class="hero-card">
+    <div class="card-float float-1">🎨 Figma + Code</div>
+    <div class="card-float float-2">🧶 Knitwit — live!</div>
+    <span class="card-tag">Featured Project</span>
+    <h3 class="card-title">Knitwit</h3>
+    <p class="card-desc">A project management app for crocheters — built from scratch, designed with care, shipped solo.</p>
+    <div class="card-skills">
+      <span class="skill-pill">JavaScript</span>
+      <span class="skill-pill">GitHub</span>
+      <span class="skill-pill">Terminal</span>
+      <span class="skill-pill">README docs</span>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- ── ABOUT ── -->
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-blob-card">
+          <span class="about-emoji">✨</span>
+          <p class="about-quote">"I've always been drawn to the aesthetic of everything around me — and tech gave me the tools to actually build it."</p>
+        </div>
+        <div class="about-dot about-dot-1"></div>
+        <div class="about-dot about-dot-2"></div>
+      </div>
+
+```
+  <div class="about-text reveal">
+    <p class="section-label">About me</p>
+    <h2 class="section-title">Designer. Developer.<br><em>Problem solver.</em></h2>
+    <p>I'm a career-changer who never really changed careers — I just finally caught up to what I've always been. Design and technology have been lifelong interests, and over the past few years I've been building real skills on both sides.</p>
+    <p>My background in ophthalmic care gave me something most tech candidates don't have: <strong>the discipline to be precise, the patience to truly listen to users, and the calm to solve problems under pressure.</strong></p>
+    <p>Today I build apps, design brands, and provide technical support — and I'm looking for a remote or hybrid role where I can bring all of that together.</p>
+
+    <div class="about-facts">
+      <div class="fact-card">
+        <div class="fact-number">6–10</div>
+        <div class="fact-label">Freelance client projects delivered</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-number">1</div>
+        <div class="fact-label">Independently shipped app (Knitwit)</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-number">5+</div>
+        <div class="fact-label">Design tools in my stack</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-number">∞</div>
+        <div class="fact-label">Curiosity about what to build next</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- ── PROJECTS ── -->
+
+  <section id="projects">
+    <div class="projects-header reveal">
+      <p class="section-label">Selected work</p>
+      <h2 class="section-title">Things I've <em>built</em><br>& designed.</h2>
+    </div>
+
+```
+<div class="projects-grid">
+  <!-- Knitwit -->
+  <a href="https://github.com/izabad/Knitwit" target="_blank" class="project-card reveal">
+    <div class="project-thumb thumb-knitwit">
+      <span class="thumb-icon">🧶</span>
+    </div>
+    <div class="project-body">
+      <p class="project-type">Full-Stack App · Solo Build</p>
+      <h3 class="project-name">Knitwit</h3>
+      <p class="project-desc">A project management app built for the crochet community. Crocheters juggle multiple projects with different yarns, hooks, and patterns — with no good place to track it all. Knitwit solves that. Built independently from concept to deployment.</p>
+      <div class="project-tags">
+        <span class="tag tag-tech">JavaScript</span>
+        <span class="tag tag-tech">Git / GitHub</span>
+        <span class="tag tag-tech">Terminal</span>
+        <span class="tag tag-live">✓ Live on GitHub</span>
+      </div>
+      <span class="project-link">View on GitHub →</span>
+    </div>
+  </a>
+
+  <!-- Side projects column -->
+  <div class="side-projects">
+    <!-- Freelance Design -->
+    <div class="project-card reveal">
+      <div class="project-thumb thumb-brand" style="height: 160px;">
+        <span class="thumb-icon">🎨</span>
+      </div>
+      <div class="project-body">
+        <p class="project-type">Freelance · Brand Identity</p>
+        <h3 class="project-name">Brand & Logo Design</h3>
+        <p class="project-desc">Logos and marketing visuals for trading card game vendors and small businesses — built in Figma, Illustrator, Procreate, and Linearity.</p>
+        <div class="project-tags">
+          <span class="tag tag-design">Figma</span>
+          <span class="tag tag-design">Illustrator</span>
+          <span class="tag tag-design">Procreate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web Design -->
+    <div class="project-card reveal">
+      <div class="project-thumb thumb-web" style="height: 160px;">
+        <span class="thumb-icon">🌐</span>
+      </div>
+      <div class="project-body">
+        <p class="project-type">Freelance · Web Design</p>
+        <h3 class="project-name">Client Websites</h3>
+        <p class="project-desc">Designed and launched websites for financial advisors using Wix and WordPress. Several remain live today.</p>
+        <div class="project-tags">
+          <span class="tag tag-design">Wix</span>
+          <span class="tag tag-design">WordPress</span>
+          <span class="tag tag-live">✓ Live sites</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- ── SKILLS ── -->
+
+  <section id="skills">
+    <div class="skills-header reveal">
+      <p class="section-label">What I work with</p>
+      <h2 class="section-title">Tools & <em style="color: var(--blush);">skills.</em></h2>
+    </div>
+
+```
+<div class="skills-grid">
+  <div class="skill-group reveal">
+    <span class="skill-group-icon">💻</span>
+    <h3 class="skill-group-title">Development</h3>
+    <ul class="skill-list">
+      <li>JavaScript</li>
+      <li>Python</li>
+      <li>HTML & CSS</li>
+      <li>Git & GitHub</li>
+      <li>Terminal / Command Line</li>
+      <li>Application Deployment</li>
+      <li>Technical Documentation</li>
+    </ul>
+  </div>
+
+  <div class="skill-group reveal">
+    <span class="skill-group-icon">🎨</span>
+    <h3 class="skill-group-title">Design</h3>
+    <ul class="skill-list">
+      <li>Figma</li>
+      <li>Adobe Illustrator</li>
+      <li>Procreate (iPad)</li>
+      <li>Linearity (iPad)</li>
+      <li>Canva</li>
+      <li>Logo & Brand Identity</li>
+      <li>UI Design</li>
+    </ul>
+  </div>
+
+  <div class="skill-group reveal">
+    <span class="skill-group-icon">🤝</span>
+    <h3 class="skill-group-title">Support & People</h3>
+    <ul class="skill-list">
+      <li>Technical Troubleshooting</li>
+      <li>Root Cause Analysis</li>
+      <li>Remote Support (Slack, Discord)</li>
+      <li>Client Communication</li>
+      <li>User Empathy</li>
+      <li>Environment Setup</li>
+      <li>Precision under pressure</li>
+    </ul>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- ── CONTACT ── -->
+
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label reveal">Get in touch</p>
+      <h2 class="section-title reveal">Let's build something<br><em>together.</em></h2>
+      <p class="contact-sub reveal">I'm actively looking for remote and hybrid roles in technical support, UX/UI design, front-end development, and creative technology. If something I've built caught your eye — let's talk.</p>
+
+```
+  <div class="contact-links reveal">
+    <a href="/cdn-cgi/l/email-protection#0c657f6d6e69607e696d62624c6b616d6560226f6361" class="contact-card">
+      <span class="contact-card-icon">✉️</span>
+      <span class="__cf_email__" data-cfemail="90f9e3f1f2f5fce2f5f1fefed0f7fdf1f9fcbef3fffd">[email&#160;protected]</span>
+    </a>
+    <a href="https://linkedin.com/in/isabel-abad" target="_blank" class="contact-card">
+      <span class="contact-card-icon">💼</span>
+      LinkedIn
+    </a>
+    <a href="https://github.com/izabad" target="_blank" class="contact-card">
+      <span class="contact-card-icon">🐙</span>
+      GitHub
+    </a>
+  </div>
+
+  <p class="contact-note reveal">Based in Richmond, VA · Open to Remote & Hybrid · She/Her</p>
+</div>
+```
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+
+  <footer>
+    <p>Designed & built by <span>Isabel Abad</span> · 2025</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+```
+// ── Custom Cursor ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX - 18) * 0.12;
+  ringY += (mouseY - ringY - 18) * 0.12;
+  ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform += ' scale(1.8)';
+    cursor.style.background = 'var(--accent2)';
+    ring.style.opacity = '0';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.background = 'var(--accent)';
+    ring.style.opacity = '0.6';
+  });
+});
+
+// ── Scroll Reveal ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+// ── Smooth nav highlight ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 12
+```
