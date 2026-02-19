@@ -1017,9 +1017,9 @@ footer span { color: var(--accent); }
 
 ```
   <div class="contact-links reveal">
-    <a href="/cdn-cgi/l/email-protection#0c657f6d6e69607e696d62624c6b616d6560226f6361" class="contact-card">
+    <a href="mailto:isabelreann@gmail.com" class="contact-card">
       <span class="contact-card-icon">✉️</span>
-      <span class="__cf_email__" data-cfemail="90f9e3f1f2f5fce2f5f1fefed0f7fdf1f9fcbef3fffd">[email&#160;protected]</span>
+      isabelreann@gmail.com
     </a>
     <a href="https://linkedin.com/in/isabel-abad" target="_blank" class="contact-card">
       <span class="contact-card-icon">💼</span>
@@ -1043,62 +1043,59 @@ footer span { color: var(--accent); }
     <p>Designed & built by <span>Isabel Abad</span> · 2025</p>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    // ── Custom Cursor ──
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
 
-```
-// ── Custom Cursor ──
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+    });
 
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
-});
-
-function animateRing() {
-  ringX += (mouseX - ringX - 18) * 0.12;
-  ringY += (mouseY - ringY - 18) * 0.12;
-  ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform += ' scale(1.8)';
-    cursor.style.background = 'var(--accent2)';
-    ring.style.opacity = '0';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.background = 'var(--accent)';
-    ring.style.opacity = '0.6';
-  });
-});
-
-// ── Scroll Reveal ──
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 80);
-      observer.unobserve(entry.target);
+    function animateRing() {
+      ringX += (mouseX - ringX - 18) * 0.12;
+      ringY += (mouseY - ringY - 18) * 0.12;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(animateRing);
     }
-  });
-}, { threshold: 0.1 });
+    animateRing();
 
-reveals.forEach(el => observer.observe(el));
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform += ' scale(1.8)';
+        cursor.style.background = 'var(--accent2)';
+        ring.style.opacity = '0';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.background = 'var(--accent)';
+        ring.style.opacity = '0.6';
+      });
+    });
 
-// ── Smooth nav highlight ──
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
+    // ── Scroll Reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 12
-```
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Smooth nav highlight ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 12
